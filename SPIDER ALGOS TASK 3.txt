@@ -1,0 +1,158 @@
+SPIDER ALGOS TASK 3
+
+TASK 3-A
+
+#include<iostream>
+using namespace std;
+void numberoftimes(long long int n)
+{
+   long sum=0,c=0;
+   while(n>0 || sum>9)
+    {
+        if(n==0)
+      {
+         c++;
+         n=sum;
+         sum=0;
+      }
+      sum+=n%10;
+      n=n/10;
+   }
+   if(sum<=9)
+    c++;
+   cout<<c;
+}
+int main()
+{
+   long long int n;
+   cin>>n;
+   numberoftimes(n);
+   return 0;
+}
+
+EXPLANATION:
+The while loop runs for either n>0 or when sum>9, and the number n is divided into its digits and accordingly the sum of digits is found
+If sum is a double digit again the while loop works for it, and when n turns 0 it gets the value of sum and sum is updated to 0
+
+*****************************************************************************************************************************************
+
+TASK 3-B
+
+#include <stdio.h>
+
+int checkprime(int n)
+{
+if (n<=1)
+return 0;
+if (n<=3)
+return 1;
+if (n%2==0 || n%3==0)
+return 0;
+for (int i=5;i*i<=n;i=i+6)
+if (n%i==0 || n%(i+2)==0)
+return 0;
+
+return 1;
+}
+
+void findsum(int n)
+{
+    int c=0;int sum;
+for(int i=2;i<=n;i++)
+{
+if (checkprime(i))
+c++;
+}
+sum=(c*(c+1))/2;
+printf("%d",sum);
+}
+
+int main()
+{
+int n;
+scanf("%d",&n);
+findsum(n);
+}
+
+EXPLANATION:
+The basic logic used is that the sum(output)= sum of natural numbers till n where n is the number of prime numbers in the range of 2 to
+the given input number.
+
+*************************************************************************************************************************************
+
+TASK 3-C
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int findMin(int arr[], int m)
+{
+    int sum=0;
+    for (int i=0;i<m;i++)
+        sum += arr[i];
+
+    bool dp[m+1][sum+1];
+
+    for (int i=0;i<=m; i++)
+        dp[i][0] = true;
+
+    for (int i=1;i<=sum;i++)
+        dp[0][i]=false;
+
+    for (int i=1;i<=m;i++)
+    {
+        for (int j=1;j<=sum;j++)
+            {
+             dp[i][j]=dp[i - 1][j];
+             if (arr[i - 1]<=j)
+                dp[i][j]= dp[i-1][j] || dp[i-1][j-arr[i-1]];
+            }
+    }
+
+    int k;
+    for (int j=sum/2;j>=0;j--)
+        {
+            if (dp[m][j] == true)
+            {
+                k=j;
+                break;
+            }
+        }
+    return k;
+}
+
+int main()
+{
+    int n,m; int sum=0;
+    scanf("%d",&n);
+    scanf("%d",&m);
+    int arr[m];
+    for(int i=0;i<m;i++)
+    scanf("%d",&arr[i]);
+    if(n==1)
+        {
+           for(int i=0;i<m;i++)
+               sum=sum+arr[i];
+           printf("%d",sum);
+        }
+    else if(n==2)
+        {
+            cout <<findMin(arr,m);
+            return 0;
+        }
+}
+
+EXPLANATION:
+Used the concept of minimum subset difference.
+findMin function is used to fill in the values for the table(true T or false F) similar to 0-1 knapsack table
+The array would be divided into 2 subarrays and the max value of sum of both the values of subarrays would be (sum of all array values)/2 
+each, therefore it checks till the (sum of array values)/2 in the for loop, and according to the knapsack T-F table, if it is true at 
+the (sum of array values)/2 position then the minimum value of sum from both the subarrays is that value orelse less than that if it is true there. 
+
+*************************************************************************************************************************
+
+TASK 3-D
+
+Wasn't able to do.
+
+********************************************************************************************************************************************
